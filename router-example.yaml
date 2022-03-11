@@ -15,7 +15,7 @@ wifi:
 
 packages:
   zbbridge:
-    url: https://github.com/mmotley999/esphome-snzb-03
+    url: https://github.com/mmotley999/esphome-hbbridge
     ref: main
     files:
       - packages/core.yaml
