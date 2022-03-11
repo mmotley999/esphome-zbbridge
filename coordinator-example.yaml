@@ -1,0 +1,26 @@
+substitutions:
+  name: zbbirdge-coordinator
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+packages:
+  snzb-03:
+    url: https://github.com/mmotley999/esphome-snzb-03
+    ref: main
+    files:
+      - packages/core.yaml
+      - packages/status_led.yaml
+      - packages/i2c.yaml
+      - packages/button_zigbee_reset.yaml
+      - packages/zeroconf.yaml
+    refresh: 0s

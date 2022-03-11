@@ -1,0 +1,31 @@
+# Don't use the button component as long as ESPHome 2021.9.3
+# is required because of the buggy esphome-stream-server
+#
+# button:
+#   - platform: template
+#     name: "${name} Enable Pairing Mode"
+#     on_press:
+#       - switch.turn_on: download_mode
+#       - delay: 5s
+#       - switch.turn_off: download_mode
+
+switch:
+  - platform: template
+    id: zigbee_pairing_mode
+    name: "${name} Toggle pairing mode"
+    turn_on_action:
+      - switch.turn_on: download_mode
+      - delay: 5s
+      - switch.turn_off: download_mode
+
+binary_sensor:
+  - platform: gpio
+    name: "${name} Enable Pairing Mode"
+    internal: true
+    pin:
+      number: GPIO16
+      inverted: true
+    on_press:
+      - switch.turn_on: download_mode
+      - delay: 5s
+      - switch.turn_off: download_mode

@@ -1,0 +1,65 @@
+# GPIO00 - LED (inverted)
+# GPIO01 - Zigbee Tx
+# GPIO03 - Zigbee Rx
+# GPIO04 - Zigbee RST
+# GPIO05 - Zigbee Bootmode (?)
+# GPIO12 - I2C SDA
+# GPIO13 - LED Link inverted
+# GPIO14 - I2C SCL
+# GPIO16 - Button
+
+
+esphome:
+  name: ${name}
+  on_boot:
+    priority: 600
+    then:
+      - switch.turn_off: download_mode
+      - switch.turn_on: zigbee_reset
+
+esp8266:
+  board: esp_wroom_02 # 2MB
+
+external_components:
+  - source: github://oxan/esphome-stream-server
+  - source: github://syssi/esphome-zeroconf@main
+
+
+uart:
+  id: uart_zigbee
+  rx_pin: GPIO3
+  tx_pin: GPIO1
+  baud_rate: 115200
+
+stream_server:
+  uart_id: uart_zigbee
+  port: 6638
+
+switch:
+  - platform: restart
+    name: "${name} Restart"
+
+  - platform: template
+    id: zigbee_reset
+    name: "${name} Zigbee Reset"
+    turn_on_action:
+      - switch.turn_on: zigbee_rst
+      - delay: 10ms
+      - switch.turn_off: zigbee_rst
+
+  # SM-011 V1.0 nRST
+  - platform: gpio
+    id: zigbee_rst
+    pin: GPIO4
+    name: "${name} Zigbee nRST"
+    inverted: true
+    internal: true
+    restore_mode: ALWAYS_OFF
+
+  # SM-011 V1.0 PA00
+  - platform: gpio
+    id: download_mode
+    pin: GPIO5
+    name: "${name} Zigbee Download Mode"
+    inverted: true
+    restore_mode: ALWAYS_OFF

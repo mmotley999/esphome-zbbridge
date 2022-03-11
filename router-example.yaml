@@ -1,0 +1,24 @@
+substitutions:
+  name: zbbridge-router
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+packages:
+  zbbridge:
+    url: https://github.com/mmotley999/esphome-snzb-03
+    ref: main
+    files:
+      - packages/core.yaml
+      - packages/status_led.yaml
+      - packages/button_pairing_mode.yaml
+    refresh: 0s
