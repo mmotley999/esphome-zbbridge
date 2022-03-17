@@ -1,5 +1,5 @@
 substitutions:
-  name: zbbirdge-coordinator
+  name: zbbiridge-coordinator
 
 # Enable logging
 logger:
@@ -14,8 +14,8 @@ wifi:
   password: !secret wifi_password
 
 packages:
-  snzb-03:
-    url: https://github.com/mmotley999/esphome-snzb-03
+  zbbridge:
+    url: https://github.com/mmotley999/esphome-zbbridge
     ref: main
     files:
       - packages/core.yaml
